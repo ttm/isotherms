@@ -18,7 +18,7 @@ python scripts/run_model.py --out results
 python scripts/run_model.py --mc --points 21 --size 32 --sweeps 500 --out results/mc
 ```
 
-The repository also includes three static example figures under [`figures/`](figures/). The script generates `illustrative_predictions.csv`, `illustrative_isotherm.png`, `molecular_contributions.png`, and `molecular_order.png`. These are **model-only figures**, not fits to published experimental dots.
+The script generates `illustrative_predictions.csv`, `illustrative_isotherm.png`, `molecular_contributions.png`, and `molecular_order.png`. These are **model-only figures**, not fits to published experimental dots.
 
 When an independently measured dataset is available, save it as a CSV with `area_a2,potential_mv,sigma_mv` and run:
 
@@ -31,6 +31,8 @@ The fit holds most physical parameters fixed, estimates only three free paramete
 ## Files
 
 - [`article/molecular_surface_potential.md`](article/molecular_surface_potential.md): research manuscript with derivation, experimental predictions, and limitations.
+- [`article/molecular_surface_potential.pdf`](article/molecular_surface_potential.pdf): typeset article PDF, including equations, tables and the three computed figures.
+- [`scripts/build_article_pdf.sh`](scripts/build_article_pdf.sh): rebuild the PDF from the Markdown source (requires Pandoc, XeLaTeX and Noto Serif).
 - [`src/isotherms/molecular.py`](src/isotherms/molecular.py): mean-field equilibrium + 2D checkerboard Metropolis sampler.
 - [`src/isotherms/legacy.py`](src/isotherms/legacy.py): reconstruction of the 1992 model for comparison.
 - [`scripts/run_model.py`](scripts/run_model.py): curves, CSV, and figures.
