@@ -18,7 +18,7 @@ python scripts/run_model.py --out results
 python scripts/run_model.py --mc --points 21 --size 32 --sweeps 500 --out results/mc
 ```
 
-The script generates `illustrative_predictions.csv`, `illustrative_isotherm.png`, `molecular_contributions.png`, and `molecular_order.png`. These are **model-only figures**, not fits to published experimental dots.
+The repository also includes three static example figures under [`figures/`](figures/). The script generates `illustrative_predictions.csv`, `illustrative_isotherm.png`, `molecular_contributions.png`, and `molecular_order.png`. These are **model-only figures**, not fits to published experimental dots.
 
 When an independently measured dataset is available, save it as a CSV with `area_a2,potential_mv,sigma_mv` and run:
 

@@ -161,6 +161,18 @@ Selected deterministic mean-field outputs (rounded, computed by `scripts/run_mod
 | 25 | 0.977 | -0.392 | -146 | 332 |
 | 20 | 0.998 | -0.430 | -150 | 273 |
 
+![Calculated molecular-state and reconstructed historical surface-potential curves](../figures/illustrative_isotherm.png)
+
+*Figure 1. Illustrative molecular-state prediction compared with a reconstruction of the 1992 theoretical model. Neither curve consists of digitized experimental data.*
+
+![Model-resolved contributions to the surface potential](../figures/molecular_contributions.png)
+
+*Figure 2. Unscreened group and hydration-water contributions plus the charge-regulated diffuse-layer potential. The sizable cancellations make inference from a single voltage curve non-unique.*
+
+![Molecular order parameters versus area](../figures/molecular_order.png)
+
+*Figure 3. Condensed fraction, water orientation and chain tilt in the same illustrative parameterization.*
+
 The sharp increase results from **coupled changes in chain orientation and hydration-water polarization when condensed packing becomes prevalent**, plus the geometrical `1/A` factor. The model also produces a shallow condensed-regime maximum. None of these numbers is a digitized experimental observation. The shape is not sufficient evidence for the water mechanism since the water bias and crossover area were chosen illustratively.
 
 ## 7. How this changes Demchak-Fort
