@@ -33,7 +33,7 @@ The `w_i` state is a *coarse-grained first-shell water orientational mode*, not 
 
 One economical dimensionless Hamiltonian for packing and hydration is
 
-\[
+$$
 \beta H_{\mathrm{mol}} =
   \delta(A)\sum_i s_i
   - J_c\sum_{\langle i,j\rangle}\sigma_i\sigma_j
@@ -41,7 +41,7 @@ One economical dimensionless Hamiltonian for packing and hydration is
   - J_w\sum_{\langle i,j\rangle}w_i w_j
   + \sum_i \frac{\kappa_{s_i}}{2}(u_i-u^0_{s_i})^2,
 \qquad \sigma_i=2s_i-1.
-\]
+$$
 
 Here `beta = 1/(k_B T)`. The field `delta(A) = g_A (A-A_0)` is the free-energy preference for condensation induced by compression. Its crossover area `A_0` is a **model parameter**, not a value calculated ab initio. The molecular packing coupling `J_c` favors neighboring molecules in the same phase. `B_e(A)` is the orientation-dependent free energy of associated water in an expanded local environment; `lambda` modifies it in a condensed environment. `J_w` represents lateral cooperativity in the hydration network. For the analytical mean-field curves we take `J_w = 0`, allowing exact tracing of the two water states conditional on packing. The supplied code also supports nonzero `J_w` in the Monte Carlo sampler.
 
@@ -51,31 +51,31 @@ The packing states and water orientations are **molecular variables**, not hidde
 
 For `J_w=0`, summing over `w_i = +/-1` at fixed packing state produces the local water partition functions
 
-\[
+$$
 Z_w(s)=2\cosh[B_e(A)+\lambda s],\qquad
 \delta_{\mathrm{eff}}(A)=\delta(A)-\ln\frac{\cosh[B_e(A)+\lambda]}{\cosh B_e(A)}.
-\]
+$$
 
 With `phi = <s_i>` and four neighbors per molecular site, the dimensionless mean-field free energy per molecule (up to a `phi`-independent term) is
 
-\[
+$$
  f(\phi) = \phi\,\delta_{\mathrm{eff}}
  -2J_c(2\phi-1)^2
  +\phi\ln\phi+(1-\phi)\ln(1-\phi).
-\]
+$$
 
 The equilibrium condensed fraction minimizes `f(phi)` over `[0,1]`; this specification is more robust than choosing an arbitrary branch of the self-consistency equation. The corresponding excess hydration order parameter is
 
-\[
+$$
 \bar w=(1-\phi)\tanh B_e(A)+\phi\tanh[B_e(A)+\lambda].
-\]
+$$
 
 A Gaussian orientational energy on the bounded interval `0 <= u <= 1` yields
 
-\[
+$$
 \bar u_s=\frac{\int_0^1 u\exp[-\kappa_s(u-u_s^0)^2/2]\,du}{\int_0^1\exp[-\kappa_s(u-u_s^0)^2/2]\,du},\qquad
 \bar u=(1-\phi)\bar u_e+\phi\bar u_c.
-\]
+$$
 
 This is thermally averaged molecular chain tilt, not geometrical inference from a conical volume. A separate two-dimensional checkerboard Metropolis sampler (`metropolis_point`) retains finite-size spatial correlations in the `s_i` and `w_i` fields. The deterministic mean-field curves and sampled lattice maps answer different questions. In particular, a rapid crossover is **not automatically a thermodynamic phase transition**. At the illustrative `J_c=0.20`, the square-lattice Ising coupling is below its zero-field critical coupling, and the mean-field energy also lacks a double-well at its symmetry point. Claiming a true first-order transition would be unjustified.
 
@@ -83,18 +83,18 @@ This is thermally averaged molecular chain tilt, not geometrical inference from 
 
 For a monovalent symmetric electrolyte of ionic strength `I` mol/L, let `n_b = 1000 N_A I` be its bulk number density in m^-3. The surface charge density is `sigma = - e alpha / A`, where `alpha = <d_i>` is the mean ionized fraction and `A` is converted to m². For a planar Gouy-Chapman layer,
 
-\[
+$$
  \psi_0=\frac{2k_BT}{e}\,\operatorname{asinh}\!\left(
  \frac{\sigma}{\sqrt{8\epsilon_0\epsilon_w k_BT n_b}}
  \right).
-\]
+$$
 
 For the reaction COOH -> COO- + H+, the local proton concentration at a negative interface exceeds that in the bulk. Hence
 
-\[
+$$
 \ln\frac{\alpha}{1-\alpha}=\ln 10\,[\mathrm{pH}_{\mathrm{bulk}}-\mathrm{p}K_a^\mathrm{eff}]
  + \frac{e\psi_0}{k_BT}.
-\]
+$$
 
 These two equations are solved simultaneously at each area. The **plus sign** in front of `e psi_0` is essential: since `psi_0 < 0`, self-repulsion of ionized carboxyl groups *suppresses* dissociation. The analytic implementation allows optional changes of apparent pKa with packing and hydration, but defaults them to zero because such couplings have not been independently estimated. The current implementation solves structural order first and charge regulation second. When the optional pKa shifts are activated, this is a one-way coupling rather than a fully variational mutual feedback; extending the Hamiltonian by the diffuse-layer charging free energy and re-minimizing all order parameters is required for thermodynamic self-consistency.
 
@@ -104,26 +104,26 @@ These two equations are solved simultaneously at each area. The **plus sign** in
 
 The fundamental electrostatic observable follows from the planar average of the excess charge density. For an electrically neutral complete simulation cell, with vanishing far-field electric fields, the potential difference across an interface is
 
-\[
+$$
 \Delta\varphi = \frac{1}{\epsilon_0}\int z\,\Delta\rho(z)\,dz.
-\]
+$$
 
 `Delta rho` must include all partial charges, water, headgroup atoms, chains and compensating ions, and must be evaluated using the **same electrostatic convention** for the monolayer and clean-water reference. An absolute water-surface potential computed from a particular force field or quadrupole partition cannot directly be equated to the measured Kelvin-probe change. Polarizable molecular models and slab boundary conditions require particular care. Charge-density integration is preferable for future atom-resolved validation.
 
 In the current coarse-grained dipolar reduction the expected excess normal dipole per fatty-acid molecule is
 
-\[
+$$
 \begin{aligned}
 \mu_\perp(A) ={}& (1-\alpha)\mu_{\mathrm{COOH}}+\alpha\mu_{\mathrm{COO^-}} \\
 &+\mu_{\mathrm{CH_3}}\bar u(A)+\mu_w^{\mathrm{ex}}\bar w(A).
 \end{aligned}
-\]
+$$
 
 The modeled observable is
 
-\[
+$$
 \boxed{\quad \Delta V(A) = \frac{\mu_\perp(A)}{\epsilon_0 A}+\psi_0[A,\alpha(A)].\quad}
-\]
+$$
 
 The quantity `mu_w^ex * wbar` represents the water polarization change *relative to clean water*, including molecules displaced or reoriented by acid adsorption. The plus sign for an upward dipole is conventional here, with the subphase-to-air normal positive. The decomposition is an interpretable **model partition**; it is not an experimentally unique separation. The historical formula instead defines screened contributions `mu_i/epsilon_i`, which are not interchangeable with unscreened local molecular dipole moments.
 
@@ -167,10 +167,10 @@ The sharp increase results from **coupled changes in chain orientation and hydra
 
 The earlier three-layer model is
 
-\[
+$$
 \Delta V_{DF}=\frac{1}{\epsilon_0 A}
 \left(\frac{\mu_1}{\epsilon_1}+\frac{\mu_2}{\epsilon_2}+\frac{\mu_3}{\epsilon_3}\right)+\psi_0.
-\]
+$$
 
 Our model retains the physical distinction between water, head and tail, but replaces its area-dependent effective local dielectric factors with **ensembles of molecular orientations** and explicit charge regulation. This does not prove the existence or nonexistence of a low interfacial dielectric susceptibility. Indeed, the local differential dielectric response of orientationally constrained water can be low even if the average hydration polarization is large. In a polarizable extension one would compute dielectric response from polarization fluctuations, for example a properly boundary-corrected normal susceptibility, rather than deducing it from a fit to a voltage curve. A single scalar `epsilon_2` is not guaranteed to be the appropriate descriptor of an anisotropic, molecularly thin interface.
 

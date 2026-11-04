@@ -67,7 +67,12 @@ def test_historical_model_expanded_and_condensed():
 
 
 def test_fit_data_validation(tmp_path):
-    from scripts.fit_data import load
+    import importlib.util
+    from pathlib import Path
+    script = Path(__file__).resolve().parents[1] / "scripts" / "fit_data.py"
+    spec = importlib.util.spec_from_file_location("fit_data_script", script)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
     data=tmp_path/'bad.csv'
     data.write_text('area_a2,potential_mv,sigma_mv\n20,100,10\n')
-    with pytest.raises(ValueError):load(data)
+    with pytest.raises(ValueError):module.load(data)
