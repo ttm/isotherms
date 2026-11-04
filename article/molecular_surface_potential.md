@@ -199,6 +199,16 @@ The historical reconstruction in `src/isotherms/legacy.py` uses the published ap
 5. **Chain-length and terminal substitutions:** varying the alkyl chain or distal group alters `mu_CH3`, orientational stiffness, dispersive packing and possibly the hydration structure. Independently measure tilt and charge to determine whether a transferable water parameterization is possible.
 6. **Compression/expansion rate and hysteresis:** spatially correlated Monte Carlo ensembles can be extended to dynamics, nucleation barriers, defects and compression protocols. A quasi-equilibrium prediction should not be compared to an unrelaxed experimental isotherm without a kinetics model.
 
+An explicit salt-prediction demonstration is available without readjusting any structural or dipolar parameters:
+
+| Ionic strength (M) | Area (Å²) | Dissociated fraction | Diffuse potential (mV) | Predicted total (mV) |
+|---:|---:|---:|---:|---:|
+| 2.5 x 10^-6 | 20 | 0.00219 | -150 | 273 |
+| 1.0 x 10^-4 | 20 | 0.00744 | -119 | 301 |
+| 1.0 x 10^-2 | 20 | 0.03342 | -80 | 329 |
+
+These are **conditional model predictions** holding molecular packing and hydration parameters fixed across salt concentrations, not measured values or validated forecasts. Any ion-specific changes to packing/hydration could reverse or modify this trend.
+
 A strong falsification criterion is a parameter set calibrated on a limited number of conditions that fails to predict **held-out** pH, ionic-strength, temperature or chain-length trends, or that requires mutually inconsistent hydration orientations across measurements.
 
 ## 9. Parameter estimation, reproducibility and uncertainty
