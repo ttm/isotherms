@@ -191,6 +191,16 @@ This work makes one decisive conceptual change relative to the existing lattice 
 
 The next decisive deliverable is a **convergence-tested** neutral-stearic-acid simulation at several areas, with independent seeds, larger lateral cells, validated electrostatic plateaus, block uncertainties, a surface-pressure calculation, and structural observables for headgroup orientation, hydration and chain tilt. Only then should constant-pH speciation, salt and polarizable force fields be compared systematically. This is the difference between a functioning pipeline and a predictive molecular theory.
 
+## 11. Direct historical comparison: exploratory benchmark, not validation
+
+The central experimental benchmark is now available. Figure 1 of Oliveira Jr., Taylor and Morgan (1992) [2] gives measured stearic-acid surface potential on ultrapure water. Its original experiment rises from near zero in the expanded regime to approximately 0.25-0.27 V on compression toward 20 Å²/molecule, with a rapid onset near 30-40 Å². Because raw numbers were not available, we recorded only an explicitly **approximate visual trace** of the scanned published graph, not individual laboratory measurements. The associated reading bands indicate graphical interpretation precision, not experimental uncertainty.
+
+The unmodified atomistic pipeline's six short-run values are overlaid with this historical trace. **No model parameter has been tuned to these points, but the pilot is not converged or chemically matched.** The reported MD values are approximately 1.48, 1.12, 0.92, 1.09, 0.72 and 0.47 V at 24, 28, 30, 32, 36 and 45 Å²/molecule, respectively. At 30 Å², the historical graphical trace is approximately 0.145 V; the absolute discrepancy is roughly 0.77 V. This numerical discrepancy must not be interpreted as a calibrated model error. The pilot uses neutral molecules and just 5 ps equilibration + 10 ps production, whereas the historical subphase includes weak dissociation; different sampled states, interfacial fields and inadequate bulk-water plateau stability further prevent a rigorous comparison.
+
+![Exploratory comparison against historical experimental trace; MD pilot is NOT a validated prediction](../figures/experimental_vs_md_pilot.png)
+
+The left panel uses a common voltage scale for historical and MD values. The right panel expands the historical transition region. **This benchmark currently fails as a predictive validation test**: it reveals substantial numerical mismatch and no convergence evidence, not a reproduced molecular onset. The objective for a subsequent publication is the same plot with original observations, replicated and equilibrated molecular uncertainty bands, chemically matched conditions, independently validated electrostatic plateaus, and a simultaneously predicted surface-pressure isotherm. The full provenance, approximate trace and reproducible code are documented in [`historical_benchmark.md`](historical_benchmark.md).
+
 ## References
 
 1. A. Chachaj-Brekiesz, J. Kobierski, R. Griñón Echaniz, A. Wnętrzak and P. Dynarowicz-Łątka, 'Comprehensive Approach to the Interpretation of the Electrical Properties of Film-Forming Molecules', *J. Phys. Chem. B* **126** (2022), 7037-7046. <https://doi.org/10.1021/acs.jpcb.2c04526>.
