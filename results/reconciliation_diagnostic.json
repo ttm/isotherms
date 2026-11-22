@@ -1,0 +1,31 @@
+{
+  "status": "DESCRIPTIVE CALIBRATION ONLY; nonconverged 15 ps MD and approximate experimental plot",
+  "conditions_match": false,
+  "validated_molecular_prediction": false,
+  "n_md_areas": 6,
+  "gaussian_bandwidth_a2_illustrative": 2.0,
+  "raw_rmse_mv": 882.0212459877831,
+  "fit_affine_gain": 0.2590451000676265,
+  "fit_affine_offset_mv": -132.55497532789582,
+  "fit_affine_rmse_mv": 44.93399060039818,
+  "fit_affine_r2_in_sample": 0.7733907194067758,
+  "fit_affine_loocv_rmse_mv": 57.32095572560308,
+  "endpoint_anchor_gain": 0.24511473413011808,
+  "endpoint_anchor_offset_mv": -112.88010953296757,
+  "endpoint_anchor_rmse_mv_all_points": 45.581427104650125,
+  "fixed_affine_after_gaussian_rmse_mv": 41.9986115958729,
+  "opposite_slope_intervals_a2": [
+    [
+      30.0,
+      32.0,
+      172.78441496070513,
+      -70.0
+    ]
+  ],
+  "notes": [
+    "Offset and gain are NOT justified electrostatic corrections unless independently derived.",
+    "Area-domain Gaussian smoothing cannot replace time averaging, independent replicas or phase equilibration.",
+    "Historical reading uncertainty describes approximate extraction of printed dots; not laboratory measurement variance.",
+    "No observation is independently predicted after the affine coefficients are fitted from all six points."
+  ]
+}
