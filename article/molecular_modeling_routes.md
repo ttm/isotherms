@@ -57,7 +57,7 @@ PYTHONPATH=src python scripts/explicit_water_pilot.py --areas 24 28 30 32 36 45 
 cat results/explicit_water_pilot/summary.csv
 ```
 
-To study the true molecular mechanism, repeat at **at least** lateral sizes 4×4, 8×8 and 12×12, independent seeds, multinanosecond equilibration and production, and at least two independently validated force-field/water combinations. Study $	420$ mV level electrical convergence, plateau fields, slab vacuum, and finite-size scaling. The required simulation duration is decided by measured integrated autocorrelation times and slow domain reorganization, not an arbitrary fixed threshold; multiple nanoseconds may still be insufficient.
+To study the true molecular mechanism, repeat at **at least** lateral sizes 4×4, 8×8 and 12×12, independent seeds, multinanosecond equilibration and production, and at least two independently validated force-field/water combinations. Study approximately 10 mV level electrical convergence (provisional design target), plateau fields, slab vacuum, and finite-size scaling. The required simulation duration is decided by measured integrated autocorrelation times and slow domain reorganization, not an arbitrary fixed threshold; multiple nanoseconds may still be insufficient.
 
 ## 6. Experimental and numerical discrimination
 
