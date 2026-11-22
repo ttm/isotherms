@@ -63,6 +63,8 @@ def plot(exp: dict[str, np.ndarray], md: dict[str, np.ndarray], out: Path):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size': 13, 'axes.titlesize': 14, 'axes.labelsize': 13,
+                         'xtick.labelsize': 11, 'ytick.labelsize': 11})
     result=compare(exp,md)
     x=exp['area_a2']; y=exp['potential_mv']
     area=md['area_a2']; voltage=md['voltage_average_v']*1000
@@ -77,7 +79,7 @@ def plot(exp: dict[str, np.ndarray], md: dict[str, np.ndarray], out: Path):
            ylabel='Excess surface potential (mV)',xlim=(19,81),ylim=(-100,1650),
            title='Same observable, incompatible validation status')
     ax.axhline(0,color='.4',lw=.65)
-    ax.legend(loc='upper right',fontsize=8,frameon=False)
+    ax.legend(loc='upper right',fontsize=10,frameon=False)
     ax.grid(alpha=.15)
     ax2.plot(x,y,'o-',lw=1.7,ms=3.5)
     ax2.fill_between(x,y-exp['reading_uncertainty_mv'],y+exp['reading_uncertainty_mv'],alpha=.14)
@@ -85,9 +87,9 @@ def plot(exp: dict[str, np.ndarray], md: dict[str, np.ndarray], out: Path):
             xlim=(19,81),ylim=(-45,320),title='Experimental transition region (zoom)')
     ax2.axhline(0,color='.4',lw=.65)
     ax2.grid(alpha=.15)
-    fig.suptitle('Historical stearic-acid ΔV–A vs nonconverged molecular forward-model output',fontsize=12)
+    fig.suptitle('Historical stearic-acid ΔV–A vs nonconverged molecular forward-model output',fontsize=15)
     fig.text(.05,.012,'Graphical reconstruction only; experimental and model pH/ionization conditions differ. '
-            'No agreement, onset, or mechanism is established.',fontsize=8)
+            'No agreement, onset, or mechanism is established.',fontsize=10)
     fig.subplots_adjust(left=.09,bottom=.18,right=.97,top=.81,wspace=.32)
     out.parent.mkdir(parents=True,exist_ok=True)
     fig.savefig(out,dpi=200)
