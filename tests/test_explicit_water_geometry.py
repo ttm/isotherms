@@ -17,6 +17,7 @@ def test_stearic_geometry_and_density(area):
     assert g['n_acid_atoms']==32*56
     assert np.isclose(g['box_nm'][0]*g['box_nm'][1]*100/16,area)
     assert g['n_water']>100
+    assert abs(g['n_water']-33*g['box_nm'][0]*g['box_nm'][1]*4)<1.1
     assert len(g['positions_nm'])==g['n_acid_atoms']+3*g['n_water']
     assert len(g['elements'])==len(g['positions_nm'])
     assert len(g['residues'])==32+g['n_water']
