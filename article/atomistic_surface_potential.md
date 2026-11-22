@@ -208,11 +208,11 @@ The six available molecular areas also permit a **diagnostic**, but not physical
 
 Without adjustment, the root-mean-square difference over six overlapping areas is **882 mV**. Ordinary least squares against these *same six historical graphical values* gives
 
-$
+$$
 \Delta V_{\mathrm{affine}}(A)
 = 0.259045\,\Delta V_{\mathrm{pilot}}(A)-132.555\,\mathrm{mV},
 \tag{10}
-$
+$$
 
 where both potentials in the gain term are in the same voltage units. The resulting **in-sample** RMSE is **44.9 mV** ($R^2=0.773$), but leave-one-area-out refitting increases RMSE to **57.3 mV**. Even calibrating only at the two endpoints (24 and 45 Å²) gives **45.6 mV** across the six points. These numbers describe the flexibility of a two-parameter affine transformation, **not** predictive molecular accuracy or an independently measured dielectric correction. The approximate graphical trace also has no independently established experimental uncertainties on which to base inferential significance.
 
