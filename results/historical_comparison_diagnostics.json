@@ -1,0 +1,46 @@
+{
+  "experimental_provenance": "manual approximate visual trace of Oliveira et al. 1992 Fig. 1; NOT raw observations",
+  "experimental_subphase": "ultrapure water reported pH 5.6, I~2.5e-6 M, T~295 K, alpha~0.002",
+  "model_provenance": "neutral stearic acid OpenFF/TIP3P, fixed protonation; single 5 ps + 10 ps trajectory per area",
+  "conditions_match": false,
+  "valid_model_prediction": false,
+  "permitted_interpretation": "illustrative diagnostic of current uncalibrated, nonconverged simulation output",
+  "comparison": [
+    {
+      "area_a2": 24.0,
+      "pilot_mv": 1480.4500056709535,
+      "approximately_read_experiment_mv": 250.0,
+      "raw_difference_mv": 1230.4500056709535
+    },
+    {
+      "area_a2": 28.0,
+      "pilot_mv": 1122.9175745463547,
+      "approximately_read_experiment_mv": 217.0,
+      "raw_difference_mv": 905.9175745463547
+    },
+    {
+      "area_a2": 30.0,
+      "pilot_mv": 916.7334352974076,
+      "approximately_read_experiment_mv": 145.0,
+      "raw_difference_mv": 771.7334352974076
+    },
+    {
+      "area_a2": 32.0,
+      "pilot_mv": 1089.5178502581127,
+      "approximately_read_experiment_mv": 75.0,
+      "raw_difference_mv": 1014.5178502581127
+    },
+    {
+      "area_a2": 36.0,
+      "pilot_mv": 717.3333644511293,
+      "approximately_read_experiment_mv": 17.0,
+      "raw_difference_mv": 700.3333644511293
+    },
+    {
+      "area_a2": 45.0,
+      "pilot_mv": 468.6789227121041,
+      "approximately_read_experiment_mv": 2.0,
+      "raw_difference_mv": 466.6789227121041
+    }
+  ]
+}
