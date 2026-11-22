@@ -110,17 +110,24 @@ def make_coordinates(area_a2: float, *, side=4, seed=41, water_thickness_nm=4.0,
     n_acid_atoms=len(positions)
     # Near-density-matched simple cubic O lattice for the initial water slab.
     d=water_density_nm3**(-1/3)
-    nx=max(2,int(round(Lxy/d))); ny=nx
-    nz=max(2,int(round(water_thickness_nm/d)))
+    nx=max(2,int(math.ceil(Lxy/d))); ny=nx
+    nz=max(2,int(math.ceil(water_thickness_nm/d)))
+    n_target=int(round(water_density_nm3 * Lxy*Lxy * water_thickness_nm))
+    selected=set(map(int,rng.choice(nx*ny*nz,size=min(n_target,nx*ny*nz),replace=False)))
     xs=(np.arange(nx)+.5)*Lxy/nx
     ys=(np.arange(ny)+.5)*Lxy/ny
     zs=low_water+(np.arange(nz)+.5)*water_thickness_nm/nz
     # TIP3P water: O-H distances and angle, random rigid rotations.
     t=math.radians(WATER_HOH_DEG)
     water=np.array([[0,0,0],[WATER_OH_NM,0,0],[WATER_OH_NM*math.cos(t),WATER_OH_NM*math.sin(t),0]])
+    water_count=0; grid_idx=0
     for x in xs:
         for y in ys:
             for z in zs:
+                keep=grid_idx in selected
+                grid_idx += 1
+                if not keep: continue
+                water_count += 1
                 u=rng.normal(size=(3,3));Q,_=np.linalg.qr(u)
                 if np.linalg.det(Q)<0: Q[:,0]*=-1
                 coords=water @ Q.T + np.array([x,y,z])
@@ -132,7 +139,7 @@ def make_coordinates(area_a2: float, *, side=4, seed=41, water_thickness_nm=4.0,
     return {
         'mol':mol,'positions_nm':np.array(positions), 'elements':elements, 'bonds':bonds,
         'residues':residues, 'box_nm':box,'n_acid_per_leaflet':side**2,
-        'n_acid_atoms':n_acid_atoms,'n_water':nx*ny*nz,
+        'n_acid_atoms':n_acid_atoms,'n_water':water_count,
         'water_o_indices':np.arange(n_acid_atoms,len(positions),3,dtype=int),
         'surface_z_nm':(low_water,high_water),
     }
@@ -149,7 +156,7 @@ def make_openmm_topology(geom, include_acid=True):
         res=top.addResidue(res_name,chain)
         for j in range(start,end):
             atom_name=f"{geom['elements'][j]}{j-start+1}" if res_name=='SA' else ('O','H1','H2')[j-start]
-            lookup[j]=top.addAtom(atom_name,element.getBySymbol(geom['elements'][j]),res)
+            lookup[j]=top.addAtom(atom_name,element.get_by_symbol(geom['elements'][j]),res)
             global_ids.append(j)
             positions.append(geom['positions_nm'][j])
     for i,j in geom['bonds']:
