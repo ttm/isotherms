@@ -74,4 +74,14 @@ PYTHONPATH=src python scripts/atomistic_forward.py --demo --out results/atomisti
 PYTHONPATH=src python scripts/atomistic_forward.py --film film_A30.npz --clean clean_A30.npz --water 5 7 --air 10 11
 ```
 
-**Validation scope:** the electrostatic forward operator passes synthetic charge-sheet and neutrality tests; these do **not** constitute actual stearic-acid/water MD, prediction of the experimental onset, or agreement with measured isotherms. Independent atomistic simulations and matched experimental data remain required. Existing paper and model are preserved unchanged.
+**Validation scope:** electrostatic synthetic-sheet and neutrality tests pass. A later nonconverged stearic-acid/water MD pilot ran successfully, but cannot establish an equilibrium isotherm, predictive onset, or agreement with measurements. See the quantitative quality audit below. The original molecular-state article and model remain intact.
+
+## Explicit-water MD pilot and scientific QA (22 November 2026)
+
+The [six-area OpenMM pilot](scripts/explicit_water_pilot.py) executes neutral stearic-acid monolayers with explicit TIP3P water at 24, 28, 30, 32, 36, and 45 Å²/molecule. It ran successfully in [GitHub Actions](https://github.com/ttm/isotherms/actions/runs/45057869556), with [`summary.csv`](results/explicit_water_pilot/summary.csv), [`protocol.json`](results/explicit_water_pilot/protocol.json), and a [pilot curve](results/explicit_water_pilot/pilot_isotherm.png). Full trajectory NPZ files and charge profiles are retained as an Actions artifact for 30 days.
+
+**This is a nonconverged execution check, not an atomistically predicted surface-potential isotherm.** The measured numerical results have substantial frame fluctuations, disagreements between nominally equivalent interfaces, and non-flat nominal bulk-water reference windows. A quantitative [scientific quality audit](article/explicit_water_pilot_quality_audit.md) reports these failures with numbers extracted from the archived trajectories. See [molecular modeling alternatives](article/molecular_modeling_routes.md) for cDFT, quantum-derived lattice statistics, polarizable MD and other routes.
+
+Workflow summary: [regular tests](https://github.com/ttm/isotherms/actions/runs/45057869567) passed **15 tests, with one optional RDKit geometry module skipped** in that environment; the OpenMM workflow independently passed all **8 geometry tests** before running six simulations. Green CI means the software executed, **not** that the predicted voltage is scientifically valid. No experimental fit or independent physical validation is claimed.
+
+To repeat locally, use the [micromamba dependency setup](.github/workflows/explicit-water-pilot.yml) and run `PYTHONPATH=src python scripts/explicit_water_pilot.py --areas 24 28 30 32 36 45 --side 4 --equil-ps 5 --prod-ps 10`. This is computationally expensive relative to the unit tests and currently uses unpinned binary package versions; archive the resolved environment before production research.
