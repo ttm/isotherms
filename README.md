@@ -85,3 +85,26 @@ The [six-area OpenMM pilot](scripts/explicit_water_pilot.py) executes neutral st
 Workflow summary: [regular tests](https://github.com/ttm/isotherms/actions/runs/45057869567) passed **15 tests, with one optional RDKit geometry module skipped** in that environment; the OpenMM workflow independently passed all **8 geometry tests** before running six simulations. Green CI means the software executed, **not** that the predicted voltage is scientifically valid. No experimental fit or independent physical validation is claimed.
 
 To repeat locally, use the [micromamba dependency setup](.github/workflows/explicit-water-pilot.yml) and run `PYTHONPATH=src python scripts/explicit_water_pilot.py --areas 24 28 30 32 36 45 --side 4 --equil-ps 5 --prod-ps 10`. This is computationally expensive relative to the unit tests and currently uses unpinned binary package versions; archive the resolved environment before production research.
+## Historical surface-potential benchmark (22 November 2026)
+
+The [atom-resolved article](article/atomistic_surface_potential.pdf) now includes
+[a direct, exploratory graphical comparison](figures/experimental_vs_md_pilot.png)
+against Figure 1 of Oliveira, Taylor & Morgan (1992). The reference
+[data CSV](data/oliveira_1992_fig1_approximate_trace.csv) is a **visually approximated
+trace of a published plot, NOT raw experimental observations or precise
+experimental point digitization**. The approximately 5+10 ps explicit-water
+pilot is **nonconverged**, does not match the source experiment's
+protonation conditions, and does not validate a microscopic transition.
+The pilot differs from the historical trace by hundreds of mV, even before
+evaluating simulation convergence.
+
+- [Full source/provenance and scientific interpretation](article/historical_benchmark.md)
+- [Reproducible comparison generator](scripts/compare_historical_isotherm.py)
+- [Integrity and no-fit regression tests](tests/test_historical_comparison.py)
+
+Reproduce with `python scripts/compare_historical_isotherm.py` after
+`pip install -e '.[plot,test]'`. The PDF workflow regenerates the figure
+and PDF on source changes. A meaningful **predictive** comparison still
+requires measured raw data, matched chemistry, converged multi-replica MD,
+finite-size and electrostatic boundary validation, plus simultaneous
+surface-pressure isotherms.
