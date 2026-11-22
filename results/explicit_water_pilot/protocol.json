@@ -1,0 +1,23 @@
+{
+  "simulation": "neutral-stea-acid-two-interface-pilot",
+  "areas_a2": [
+    24.0,
+    28.0,
+    30.0,
+    32.0,
+    36.0,
+    45.0
+  ],
+  "side": 4,
+  "equil_ps": 5.0,
+  "prod_ps": 10.0,
+  "interval_ps": 1.0,
+  "temp_k": 295.0,
+  "seed": 2026,
+  "forcefield": "openff-2.2.1",
+  "water": "amber14/tip3p.xml",
+  "integrator": "LangevinMiddle,2fs,NVT",
+  "electrostatics": "3D PME, symmetric 2-interface slab",
+  "epistemic_status": "nonconverged pilot; not evidence for a transition",
+  "elapsed_s": 795.0
+}
