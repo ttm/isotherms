@@ -9,7 +9,7 @@
   "fit_affine_offset_mv": -132.55497532789582,
   "fit_affine_rmse_mv": 44.93399060039818,
   "fit_affine_r2_in_sample": 0.7733907194067758,
-  "fit_affine_loocv_rmse_mv": 57.32095572560308,
+  "fit_affine_loocv_rmse_mv": 57.32095572560307,
   "endpoint_anchor_gain": 0.24511473413011808,
   "endpoint_anchor_offset_mv": -112.88010953296757,
   "endpoint_anchor_rmse_mv_all_points": 45.581427104650125,
