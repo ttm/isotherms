@@ -7,9 +7,9 @@ pandoc atomistic_surface_potential.md \
   -o atomistic_surface_potential.pdf \
   --pdf-engine=pdflatex \
   -V documentclass=article \
-  -V geometry:margin=0.8in \
+  -V geometry:margin=0.75in \
   -V fontsize=10pt \
-  -V linestretch=1.13 \
+  -V linestretch=1.09 \
   -V colorlinks=true \
   --resource-path=.
 echo "Built article/atomistic_surface_potential.pdf"
