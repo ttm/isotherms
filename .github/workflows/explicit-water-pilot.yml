@@ -6,9 +6,7 @@ on:
     paths:
       - 'scripts/explicit_water_pilot.py'
       - 'src/isotherms/atomistic.py'
-      - 'article/molecular_modeling_routes.md'
       - 'tests/test_explicit_water_geometry.py'
-      - '.github/workflows/explicit-water-pilot.yml'
   workflow_dispatch:
 
 permissions:
