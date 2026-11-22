@@ -62,6 +62,13 @@ jobs:
           p=Path('article/atomistic_surface_potential.pdf')
           assert p.read_bytes().startswith(b'%PDF-')
           PY
+      - name: Upload manuscript for layout inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: atomistic-paper-pdf
+          path: article/atomistic_surface_potential.pdf
+          retention-days: 30
+          if-no-files-found: error
       - name: Commit generated PDF to main
         run: |
           git config user.name 'github-actions[bot]'
