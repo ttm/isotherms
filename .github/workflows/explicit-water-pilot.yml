@@ -1,0 +1,71 @@
+name: Explicit-water stearic-acid MD pilot (nonconverged)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/explicit_water_pilot.py'
+      - 'src/isotherms/atomistic.py'
+      - 'article/molecular_modeling_routes.md'
+      - 'tests/test_explicit_water_geometry.py'
+      - '.github/workflows/explicit-water-pilot.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: isotherms-md
+          create-args: >-
+            python=3.11
+            openmm
+            openmmforcefields
+            openff-toolkit
+            rdkit
+            numpy
+            scipy
+            matplotlib
+            pytest
+          condarc: |
+            channels:
+              - conda-forge
+            channel_priority: strict
+          cache-environment: true
+      - name: Verify molecular builder and available force fields
+        shell: micromamba-shell {0}
+        run: |
+          python -m pytest -q tests/test_explicit_water_geometry.py
+          python -c "import openmm, openff.toolkit, openmmforcefields; print('MD deps available:', openmm.version.version)"
+      - name: Run neutral-acid explicit-water pilot (not a scientific isotherm)
+        shell: micromamba-shell {0}
+        env:
+          OPENMM_CPU_THREADS: '2'
+        run: |
+          PYTHONPATH=src python -u scripts/explicit_water_pilot.py \
+            --areas 24 28 30 32 36 45 --side 4 \
+            --equil-ps 5 --prod-ps 10 --interval-ps 1 \
+            --platform CPU --out results/explicit_water_pilot
+      - name: Upload reproducibility artifacts, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neutral-stearic-acid-explicit-water-pilot
+          path: results/explicit_water_pilot/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Commit small *provisional* outputs on main if successful
+        if: success()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f results/explicit_water_pilot/{summary.csv,protocol.json,pilot_isotherm.png}
+          git diff --cached --quiet && exit 0
+          git commit -m 'data: record exploratory explicit-water pilot (NOT converged or validated)'
+          git push origin HEAD:main
