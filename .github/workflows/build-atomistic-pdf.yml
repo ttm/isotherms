@@ -1,0 +1,54 @@
+name: Build atomistic manuscript PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'article/atomistic_surface_potential.md'
+      - 'scripts/build_atomistic_pdf.sh'
+      - '.github/workflows/build-atomistic-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-article:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Pandoc and LaTeX
+        run: |
+          docker run --rm --entrypoint sh \
+            --user "$(id -u):$(id -g)" \
+            -v "${PWD}:/data" -w /data \
+            pandoc/latex:3 -c '
+              cd article
+              pandoc atomistic_surface_potential.md \
+                -o atomistic_surface_potential.pdf \
+                --pdf-engine=pdflatex \
+                -V documentclass=article \
+                -V geometry:margin=0.8in \
+                -V fontsize=10pt \
+                -V linestretch=1.13 \
+                -V colorlinks=true \
+                --resource-path=.
+            '
+      - name: Validate PDF
+        run: |
+          file article/atomistic_surface_potential.pdf
+          test "$(stat -c %s article/atomistic_surface_potential.pdf)" -gt 20000
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('article/atomistic_surface_potential.pdf')
+          assert p.read_bytes().startswith(b'%PDF-')
+          PY
+      - name: Commit generated PDF to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add article/atomistic_surface_potential.pdf
+          git diff --cached --quiet && exit 0
+          git commit -m 'docs: regenerate atomistic paper PDF from revised Markdown'
+          git push origin HEAD:main
