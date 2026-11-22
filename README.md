@@ -56,3 +56,22 @@ The 2005 de Moura, Oliveira Jr., Trsic molecular-dynamics abstract already addre
 7. Molecular-dynamics study of hydrated DPPC monolayers with planar charge-density integration: https://pmc.ncbi.nlm.nih.gov/articles/PMC3488352/
 
 Re-use and redistribution of the three user-supplied copyrighted articles is intentionally avoided. Only original exposition and citations are committed.
+
+
+## Atom-resolved forward theory (22 November 2026)
+
+The second research manuscript pursues a stronger, **prediction-first** treatment: derive a surface-potential isotherm from independently specified atomistic charge distributions of stearic acid, explicit water, and ions, rather than fitting an area-dependent headgroup dielectric constant or prescribing an onset near 30 Å².
+
+- [New article, Markdown](article/atomistic_surface_potential.md) and [PDF](article/atomistic_surface_potential.pdf)
+- [Planar charge-density/Poisson solver](src/isotherms/atomistic.py), [trajectory analysis CLI](scripts/atomistic_forward.py), [eight regression tests](tests/test_atomistic.py)
+- [Analytic sheet benchmark](figures/atomistic_sheet_benchmark.png) and [CSV](examples/atomistic_sheet_benchmark.csv)
+- PDF rebuild: `bash scripts/build_atomistic_pdf.sh` (requires Pandoc + pdfLaTeX).
+
+```bash
+PYTHONPATH=src pytest -q tests/test_atomistic.py
+PYTHONPATH=src python scripts/atomistic_forward.py --demo --out results/atomistic
+# For real equilibrated, charge-neutral atomistic trajectories:
+PYTHONPATH=src python scripts/atomistic_forward.py --film film_A30.npz --clean clean_A30.npz --water 5 7 --air 10 11
+```
+
+**Validation scope:** the electrostatic forward operator passes synthetic charge-sheet and neutrality tests; these do **not** constitute actual stearic-acid/water MD, prediction of the experimental onset, or agreement with measured isotherms. Independent atomistic simulations and matched experimental data remain required. Existing paper and model are preserved unchanged.
